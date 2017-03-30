@@ -1,0 +1,64 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ChangeLog
+ *
+ * @ORM\Table(name="change_log", indexes={@ORM\Index(name="fk_changelog_users_fk_idx", columns={"usr_id"})})
+ * @ORM\Entity
+ */
+class ChangeLog
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="chl_id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $chlId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="chl_action", type="string", length=45, nullable=true)
+     */
+    private $chlAction;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="chl_date", type="datetime", nullable=true)
+     */
+    private $chlDate = 'CURRENT_TIMESTAMP';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="chl_row_before", type="string", length=1000, nullable=true)
+     */
+    private $chlRowBefore;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="chl_row_after", type="string", length=1000, nullable=true)
+     */
+    private $chlRowAfter;
+
+    /**
+     * @var \AppBundle\Entity\User
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="usr_id", referencedColumnName="usr_id")
+     * })
+     */
+    private $usr;
+
+
+}
+

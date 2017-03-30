@@ -1,0 +1,47 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Profile
+ *
+ * @ORM\Table(name="profile")
+ * @ORM\Entity
+ */
+class Profile
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="pru_id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $pruId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pru_name", type="string", length=45, nullable=true)
+     */
+    private $pruName;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="usr_id_create", type="integer", nullable=true)
+     */
+    private $usrIdCreate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_created", type="datetime", nullable=true)
+     */
+    private $dateCreated = 'CURRENT_TIMESTAMP';
+
+
+}
+

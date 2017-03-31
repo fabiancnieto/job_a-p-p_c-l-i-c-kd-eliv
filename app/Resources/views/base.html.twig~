@@ -27,6 +27,7 @@
   </head>
 
   <body>
+    {% if app.user != null %}
     <nav class="navbar navbar-fixed-top navbar-inverse">
       <div class="container">
         <div class="navbar-header">
@@ -42,13 +43,14 @@
           <ul class="nav navbar-nav">
             <li ><a href="/Users">Users</a></li>
             <li ><a href="/Users/new">Create User</a></li>
+            <li ><a href="/Parameters">Parameters</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
     </nav><!-- /.navbar -->
 
     <div class="container">
-
+      <hr>
       <div class="row">
         <div class="col-xs-12 col-sm-12">
 		   <div class="page-header">
@@ -61,7 +63,10 @@
           <p class="pull-right visible-xs">
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
           </p>
+        <div class="col-xs-1 col-sm-2"></div>
+        <div class="col-xs-10 col-sm-8">
           {% block body %}{% endblock %}
+        <div class="col-xs-1 col-sm-2"></div>
         </div>
       </div><!--/row-->
 
@@ -72,7 +77,9 @@
       </footer>
 
     </div><!--/.container-->
-
+    {% if app.user == null %}
+           <a href="/login" class="btn btn-info"> You need to login!!</a>
+    {% endif %}
     {% block javascripts %}{% endblock %}
     <!-- Bootstrap core JavaScript
     ================================================== -->

@@ -20,15 +20,6 @@ class UserControllerTest extends WebTestCase
 
         $this->assertTrue($crawler->filter('html:contains("Users List")')->count() > 0);
     }
-    
-    public function testNewUserCreation()
-    {
-        $client = static::createClient();
-
-        $crawler = $client->request('GET', '/Users/new');
-
-        $this->assertTrue($crawler->filter('h1:contains("Success Message")')->count() > 0);
-    }
 
     /*public function testRetreivingUsers()
     {   

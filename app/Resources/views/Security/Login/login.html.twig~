@@ -1,0 +1,28 @@
+{% extends 'base_login.html.twig' %}
+
+{% block title %}Sign-in{% endblock %}
+{% block body %}
+    <div class="col-xs-1 col-sm-2"></div>
+    <div class="col-xs-10 col-sm-8">
+      <br/>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          Are you a registered User?, Please sign in
+        </div>
+      </div>
+        {% if error %}
+          <div class="alert alert-danger">
+            {{ error.messageKey|trans(error.messageData) }}
+          </div>
+        {% endif %}
+      <form class="form-signin" role="form" method="POST" action="{{ path('ums_security_login_check') }}">
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+        <br/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+    </div>
+    <div class="col-xs-1 col-sm-2"></div>
+{% endblock %}

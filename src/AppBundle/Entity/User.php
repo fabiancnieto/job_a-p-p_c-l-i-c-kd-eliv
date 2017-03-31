@@ -5,14 +5,16 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
  *
  * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="usr_email_UNIQUE", columns={"usr_email"})}, indexes={@ORM\Index(name="fk_user_profile_fk_idx", columns={"pru_id"})})
  * @ORM\Entity
+ * @UniqueEntity(fields="usrEmail", message="This email address is already in use!!")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var integer
@@ -64,6 +66,13 @@ class User
      * @ORM\Column(name="usr_password", type="string", length=200, nullable=false)
      */
     private $usrPassword;
+    
+    /**
+     * @var string
+     *
+     * @Assert\Length(max=4096)
+     */
+    private $usrPlainPassword;
 
     /**
      * @var boolean
@@ -347,4 +356,86 @@ class User
     {
         return $this->pru;
     }
-}
+    
+    /**
+     * Get salt
+     *
+     * 
+     */
+    public function getSalt()
+    {
+        null;
+    }
+    
+    /**
+     * Get Roles
+     *
+     * 
+     */
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+    /**
+     * Set Plain Password
+     *
+     * 
+     */
+    public function setPlainPassword($usrPlainPassword)
+    {
+        $this->usrPlainPassword = $usrPlainPassword;
+        return $this;
+    }
+    
+    /**
+     * Get Plain Password
+     *
+     * 
+     */
+    public function getPlainPassword()
+    {
+        return $this->usrPlainPassword;
+    }
+    
+    /**
+     * Set Password
+     *
+     * 
+     */
+    public function setPassword($usrPassword)
+    {
+        $this->setUsrPassword($usrPassword);
+        return $this;
+    }
+    
+    /**
+     * Get Password
+     *
+     * 
+     */
+    public function getPassword()
+    {
+        return $this->getUsrPassword();
+    }
+    
+    /**
+     * Get UserName
+     *
+     * 
+     */
+    public function getUserName()
+    {
+        return $this->getUsrFullName();
+    }
+    
+    /**
+     * eraseCredentials
+     *
+     * 
+     */
+    public function eraseCredentials()
+    {
+    }
+
+}	

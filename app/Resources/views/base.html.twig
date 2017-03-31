@@ -42,6 +42,7 @@
           <ul class="nav navbar-nav">
             <li ><a href="/Users">Users</a></li>
             <li ><a href="/Users/new">Create User</a></li>
+            <li ><a href="/Parameters">Parameters</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
@@ -61,7 +62,10 @@
           <p class="pull-right visible-xs">
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
           </p>
+        <div class="col-xs-1 col-sm-2"></div>
+        <div class="col-xs-10 col-sm-8">
           {% block body %}{% endblock %}
+        <div class="col-xs-1 col-sm-2"></div>
         </div>
       </div><!--/row-->
 

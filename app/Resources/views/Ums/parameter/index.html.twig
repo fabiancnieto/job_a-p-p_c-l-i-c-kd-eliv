@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block headtitle %}Parameters List{% endblock %}
+{% block body %}
+    <table class="table table-hover table-responsive">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Value</th>
+                <th>State</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for parameter in parameters %}
+            <tr>
+                <td>{{ parameter.parStringValue }}</td>
+                <td>{{ parameter.parNumericValue }}</td>
+                <td>{% if parameter.parState %}ACTIVE{% else %}INACTIVE{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a class="btn btn-info" href="{{ path('parameter_edit', { 'parId': parameter.parId }) }}">Edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

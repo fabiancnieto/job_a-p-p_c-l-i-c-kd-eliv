@@ -1,0 +1,57 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * RegisterLog
+ *
+ * @ORM\Table(name="register_log", indexes={@ORM\Index(name="fk_register_log_user_idx", columns={"usr_id"})})
+ * @ORM\Entity
+ */
+class RegisterLog
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="reg_id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $regId;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="request_date", type="datetime", nullable=true)
+     */
+    private $requestDate = 'CURRENT_TIMESTAMP';
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="response_date", type="datetime", nullable=true)
+     */
+    private $responseDate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="hash", type="string", length=45, nullable=true)
+     */
+    private $hash;
+
+    /**
+     * @var \AppBundle\Entity\User
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="usr_id", referencedColumnName="usr_id")
+     * })
+     */
+    private $usr;
+
+
+}
+

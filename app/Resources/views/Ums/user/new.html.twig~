@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block headtitle %}Create New User{% endblock %}
+{% block body %}
+    <ul>
+        <li>
+            <a class="btn btn-default btn-sm" href="{{ path('Ums_index') }}">Back to the list</a>
+        </li>
+    </ul>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <br/>
+        <input type="submit" value="Create" class="btn btn-primary btn-lg" />
+    {{ form_end(form) }}
+        <hr>
+
+{% endblock %}

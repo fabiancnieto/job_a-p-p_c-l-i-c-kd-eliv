@@ -1,6 +1,5 @@
 {% extends 'base.html.twig' %}
 
-<<<<<<< HEAD
 {% block headtitle %}Create New User{% endblock %}
 {% block body %}
     <ul>
@@ -13,21 +12,4 @@
         <br/>
         <input type="submit" value="Create" class="btn btn-primary btn-lg" />
     {{ form_end(form) }}
-        <hr>
-
-=======
-{% block body %}
-    <h1>User creation</h1>
-
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('Ums_index') }}">Back to the list</a>
-        </li>
-    </ul>
->>>>>>> master
 {% endblock %}

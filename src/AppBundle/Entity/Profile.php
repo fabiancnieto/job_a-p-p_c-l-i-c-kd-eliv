@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Profile
@@ -40,9 +41,18 @@ class Profile
      *
      * @ORM\Column(name="date_created", type="datetime", nullable=true)
      */
-    private $dateCreated = 'CURRENT_TIMESTAMP';
+    private $dateCreated;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\User", mappedBy="pru", cascade={"persist"})
+     */
+    private $users;
 
+    public function __construct()
+    {
+      $this->users = new ArrayCollection();
+      $this->dateCreated = new \DateTime();
+    }
 
     /**
      * Get pruId

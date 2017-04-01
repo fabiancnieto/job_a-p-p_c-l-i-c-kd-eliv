@@ -16,6 +16,7 @@ This is a small project as a part of job application. The main objective of this
 * PhpUnit 6                      
 * Doctrine 2.3
 * Facebook-sdk
+
 ## Installing
 
 * MySQL: create a database named **Umsjobappdb**, and execute the following script:
@@ -44,7 +45,9 @@ Then open a terminal and type
   php bin/console server:run
 </pre>
 
-
+##Documentation
+This Asana project has some details about this project:
+https://app.asana.com/-/share?s=303060576670139-gyzR4oVyH6lP6M2etMSgmJfoMPchfP3k3A04bVOaCay-88516083454272
 
 ## External libs used
 * https://jquery.com/

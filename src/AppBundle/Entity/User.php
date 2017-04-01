@@ -5,25 +5,17 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-<<<<<<< HEAD
 use Symfony\Component\Security\Core\User\UserInterface;
 use AppBundle\Entity\Profile;
-=======
->>>>>>> master
 
 /**
  * User
  *
  * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="usr_email_UNIQUE", columns={"usr_email"})}, indexes={@ORM\Index(name="fk_user_profile_fk_idx", columns={"pru_id"})})
  * @ORM\Entity
-<<<<<<< HEAD
  * @UniqueEntity(fields="usrEmail", message="This email address is already in use!!")
  */
 class User implements UserInterface
-=======
- */
-class User
->>>>>>> master
 {
     /**
      * @var integer
@@ -75,7 +67,6 @@ class User
      * @ORM\Column(name="usr_password", type="string", length=200, nullable=false)
      */
     private $usrPassword;
-<<<<<<< HEAD
     
     /**
      * @var string
@@ -83,8 +74,6 @@ class User
      * @Assert\Length(max=4096)
      */
     private $usrPlainPassword;
-=======
->>>>>>> master
 
     /**
      * @var boolean
@@ -103,30 +92,24 @@ class User
     /**
      * @var \DateTime
      *
-<<<<<<< HEAD
-     * @ORM\Column(name="usr_creation_date", type="date", nullable=true, options={"default": "CURRENT_TIMESTAMP"})
-=======
      * @ORM\Column(name="usr_creation_date", type="date", nullable=true)
->>>>>>> master
      */
     private $usrCreationDate;
 
     /**
      * @var \AppBundle\Entity\Profile
      *
-<<<<<<< HEAD
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Profile", inversedBy="users", cascade={"persist"})
-=======
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Profile")
->>>>>>> master
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="pru_id", referencedColumnName="pru_id")
      * })
      */
     private $pru;
 
-
-
+    public function __construct()
+    {
+         $this->usrCreationDate = new \DateTime();
+    }
     /**
      * Get usrId
      *
@@ -336,13 +319,9 @@ class User
      *
      * @return User
      */
-<<<<<<< HEAD
-    public function setUsrCreationDate(\DateTime $usrCreationDate)
-=======
     public function setUsrCreationDate($usrCreationDate)
->>>>>>> master
     {
-        $this->usrCreationDate = $usrCreationDate;
+        $this->usrCreationDate = new \DateTime($usrCreationDate);
 
         return $this;
     }
@@ -380,7 +359,6 @@ class User
     {
         return $this->pru;
     }
-<<<<<<< HEAD
     
     /**
      * Get salt
@@ -461,7 +439,7 @@ class User
      */
     public function getUserName()
     {
-        return $this->getUsrFullName();
+        return $this->getUsrEmail();
     }
     
     /**
@@ -473,7 +451,4 @@ class User
     {
     }
 
-}	
-=======
 }
->>>>>>> master

@@ -5,12 +5,9 @@ namespace AppBundle\Controller\Ums;
 use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-<<<<<<< HEAD
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-=======
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
->>>>>>> master
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * User controller.
@@ -47,11 +44,7 @@ class UserController extends Controller
     public function newAction(Request $request)
     {
         $user = new User();
-<<<<<<< HEAD
         $form = $this->createForm('AppBundle\Form\Ums\UserType', $user);
-=======
-        $form = $this->createFormBuilder('AppBundle\Form\Ums\UserType', $user);
->>>>>>> master
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

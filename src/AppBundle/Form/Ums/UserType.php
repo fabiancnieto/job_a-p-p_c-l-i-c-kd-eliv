@@ -5,15 +5,12 @@ namespace AppBundle\Form\Ums;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-<<<<<<< HEAD
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\Profile;
 use AppBundle\Entity\Parameter;
 use Doctrine\ORM\EntityRepository;
-=======
->>>>>>> master
 
 class UserType extends AbstractType
 {
@@ -23,7 +20,6 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-<<<<<<< HEAD
           ->add('usrFirstName',null,array('label' => 'First Name', 'attr' => array('class' => 'form-control')))
           ->add('usrLastName',null,array('label' => 'Last Name', 'attr' => array('class' => 'form-control')))
           ->add('usrEmail',EmailType::class,array('label' => 'Email', 'attr' => array('class' => 'form-control')))
@@ -43,15 +39,6 @@ class UserType extends AbstractType
               'label' => 'Profile','attr' => array('class' => 'form-control')
             )
           );
-=======
-          ->add('usrFirstName')
-          ->add('usrLastName')
-          ->add('usrEmail')
-          ->add('usrPhoneNumber')
-          ->add('usrPassword')
-          ->add('usrGrantList')
-          ->add('pru');
->>>>>>> master
     }
     
     /**

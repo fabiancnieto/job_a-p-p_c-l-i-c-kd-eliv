@@ -49,5 +49,4 @@ class RegistrationType extends AbstractType
         return 'appbundle_user';
     }
 
-
 }

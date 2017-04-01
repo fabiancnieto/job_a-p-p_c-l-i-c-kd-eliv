@@ -3,6 +3,7 @@
 namespace AppBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+<<<<<<< HEAD
 /*use AppBundle\Entity\User;
 use AppBundle\Controller\Ums\UserController;
 use Doctrine\ORM\EntityRepository;
@@ -62,6 +63,13 @@ class UserControllerTest extends WebTestCase
     
     
     /*public function testCompleteScenario()
+=======
+
+class UserControllerTest extends WebTestCase
+{
+    /*
+    public function testCompleteScenario()
+>>>>>>> master
     {
         // Create a new client to browse the application
         $client = static::createClient();
@@ -103,6 +111,12 @@ class UserControllerTest extends WebTestCase
 
         // Check the entity has been delete on the list
         $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
+<<<<<<< HEAD
     }*/
 
+=======
+    }
+
+    */
+>>>>>>> master
 }

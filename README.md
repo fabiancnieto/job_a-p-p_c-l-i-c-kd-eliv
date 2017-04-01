@@ -2,11 +2,16 @@
   <img src="click-delivery.png">
 </p>
 
+##
+This is a small project as a part of job application. The main objective of this solution is to build a User Management System
+
 <p align="center">
 
 ## Requirements
 * MySQL 5.7                        
-* PHP 5.6                        
+* PHP 5.6
+	- Mbstring PHP Extension                        
+	- PDO PHP Estension
 * Symfony Framework 3                        
 * PhpUnit 6                      
 * Doctrine 2.3
@@ -17,6 +22,9 @@
 <pre>
  UMSJobApp/resources/Database/Umsjobappdb.sql
 </pre>
+
+* Web Server: Please setup the Webserver:
+http://symfony.com/doc/current/setup/web_server_configuration.html
 
 In the config file located in: UMSJobApp/app/config/parameters.yml make sure you have configured MySQL like this:
 <pre>
@@ -30,11 +38,12 @@ parameters:
 
 Source files: Please clone this repo (git clone https://github.com/fabiancnieto/job_a-p-p_c-l-i-c-kd-eliv.git)
 
-then open a terminal and type 
-
+Then open a terminal and type 
 <pre>
-  cd job_a-p-p_c-l-i-c-kd-eliv
+  cd UMSJobApp
+  php bin/console server:run
 </pre>
+
 
 
 ## External libs used

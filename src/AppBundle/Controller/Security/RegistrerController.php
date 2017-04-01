@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Security;
 
 use AppBundle\Entity\User;
+use AppBundle\Entity\Profile;
 use AppBundle\Form\Ums\UserType;
 use AppBundle\Form\RegistrationType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -22,14 +23,19 @@ class RegistrerController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+        	   $dateType = new \DateTime("now");
             // Encode the new users password
             $encrpyt = $this->get('security.password_encoder');
             $password = $encrpyt->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
+            $user->setusrFullName($user->getUsrFirstName()." ".$user->getUsrLastName());
+            $user->setUsrState(false);
+            $user->setUsrGrantList(false);
+            $user->setUsrCreationDate($dateType);
 
             // Set their role
-            $user->setRole('ROLE_USER');
-            print_r($user);die();
+            $profile = new Profile(3);
+            $user->setPru($profile);
 
             // Save
             $em = $this->getDoctrine()->getManager();

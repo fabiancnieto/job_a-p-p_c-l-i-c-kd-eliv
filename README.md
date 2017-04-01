@@ -4,7 +4,7 @@
 
 <p align="center">
 
-## Requiremnents
+## Requirements
 * MySQL 5.7                        
 * PHP 5.6                        
 * Symfony Framework 3                        
@@ -38,7 +38,9 @@ then open a terminal and type
 
 
 ## External libs used
-* Add libs here
+* https://jquery.com/
+* http://getbootstrap.com/
+* https://developers.facebook.com/docs/reference/php
 ## License
 
 This project is based in Symfony http://symfony.com/

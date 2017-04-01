@@ -23,7 +23,7 @@ class RegistrationType extends AbstractType
           ->add('usrLastName',null,array('label' => 'Last Name', 'attr' => array('class' => 'form-control')))
           ->add('usrEmail',EmailType::class,array('label' => 'Email', 'attr' => array('class' => 'form-control')))
           ->add('usrPhoneNumber',null,array('label' => 'Phone number', 'attr' => array('class' => 'form-control')))
-          ->add('usrPlainPassword',RepeatedType::class,[
+          ->add('plainPassword',RepeatedType::class,[
             'type' => PasswordType::class,
             'first_options' => ['label' => 'Password'],
             'second_options' => ['label' => 'Confirm Password'],

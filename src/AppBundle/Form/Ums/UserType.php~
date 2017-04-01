@@ -7,8 +7,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\Profile;
 use AppBundle\Entity\Parameter;
@@ -41,6 +39,13 @@ class UserType extends AbstractType
               'label' => 'Profile','attr' => array('class' => 'form-control')
             )
           );
+          ->add('usrFirstName')
+          ->add('usrLastName')
+          ->add('usrEmail')
+          ->add('usrPhoneNumber')
+          ->add('usrPassword')
+          ->add('usrGrantList')
+          ->add('pru');
     }
     
     /**

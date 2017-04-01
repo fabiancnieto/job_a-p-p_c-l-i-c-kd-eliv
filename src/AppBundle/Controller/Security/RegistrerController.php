@@ -23,7 +23,6 @@ class RegistrerController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-        	   $dateType = new \DateTime("now");
             // Encode the new users password
             $encrpyt = $this->get('security.password_encoder');
             $password = $encrpyt->encodePassword($user, $user->getPlainPassword());
@@ -31,7 +30,6 @@ class RegistrerController extends Controller
             $user->setusrFullName($user->getUsrFirstName()." ".$user->getUsrLastName());
             $user->setUsrState(false);
             $user->setUsrGrantList(false);
-            $user->setUsrCreationDate($dateType);
 
             // Set their role
             $profile = new Profile(3);

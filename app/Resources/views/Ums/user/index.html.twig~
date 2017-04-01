@@ -10,7 +10,7 @@
                 <th>Phone</th>
                 <th>State</th>
                 <th>Profile</th>
-                <th>View Privilege</th>
+                <th>Read Privilege</th>
                 <th>Created</th>
                 <th>Actions</th>
             </tr>
@@ -33,7 +33,11 @@
 
     <ul>
         <li>
+<<<<<<< HEAD
             <a class="btn btn-success" href="{{ path('Ums_new') }}">Create a new user</a>
+=======
+            <a class="btn btn-success btn-sm" href="{{ path('Ums_new') }}">Create a new user</a>
+>>>>>>> master
         </li>
     </ul>
 {% endblock %}

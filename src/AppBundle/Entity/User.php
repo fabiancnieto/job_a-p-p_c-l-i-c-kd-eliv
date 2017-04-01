@@ -92,7 +92,7 @@ class User implements UserInterface
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="usr_creation_date", type="date", nullable=true, options={"default": "CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="usr_creation_date", type="date", nullable=true)
      */
     private $usrCreationDate;
 
@@ -106,8 +106,10 @@ class User implements UserInterface
      */
     private $pru;
 
-
-
+    public function __construct()
+    {
+         $this->usrCreationDate = new \DateTime();
+    }
     /**
      * Get usrId
      *
@@ -317,9 +319,9 @@ class User implements UserInterface
      *
      * @return User
      */
-    public function setUsrCreationDate(\DateTime $usrCreationDate)
+    public function setUsrCreationDate($usrCreationDate)
     {
-        $this->usrCreationDate = $usrCreationDate;
+        $this->usrCreationDate = new \DateTime($usrCreationDate);
 
         return $this;
     }
@@ -437,7 +439,7 @@ class User implements UserInterface
      */
     public function getUserName()
     {
-        return $this->getUsrFullName();
+        return $this->getUsrEmail();
     }
     
     /**
@@ -449,4 +451,4 @@ class User implements UserInterface
     {
     }
 
-}	
+}

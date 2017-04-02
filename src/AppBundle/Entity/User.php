@@ -129,7 +129,7 @@ class User implements UserInterface
      */
     public function setUsrFirstName($usrFirstName)
     {
-        $this->usrFirstName = $usrFirstName;
+        $this->usrFirstName = strtoupper($usrFirstName);
 
         return $this;
     }
@@ -153,7 +153,7 @@ class User implements UserInterface
      */
     public function setUsrLastName($usrLastName)
     {
-        $this->usrLastName = $usrLastName;
+        $this->usrLastName = strtoupper($usrLastName);
 
         return $this;
     }
@@ -175,9 +175,9 @@ class User implements UserInterface
      *
      * @return User
      */
-    public function setUsrFullName($usrFullName)
+    public function setUsrFullName($usrFullName = "")
     {
-        $this->usrFullName = $usrFullName;
+        $this->usrFullName = strtoupper($this->usrFirstName." ".$this->usrLastName);
 
         return $this;
     }
@@ -387,7 +387,13 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        return array('ROLE_USER');
+        if($this->pru->getPruId() == 5){
+            return array('ROLE_ADMIN');
+        } elseif($this->pru->getPruId() == 6){
+            return array('ROLE_AGENT');
+        } elseif($this->pru->getPruId() == 7){
+            return array('ROLE_USER');
+        }
     }
 
     /**

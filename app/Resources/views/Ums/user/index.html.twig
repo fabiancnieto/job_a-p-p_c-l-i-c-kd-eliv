@@ -22,10 +22,11 @@
                 <td>{{ user.usrEmail }}</td>
                 <td>{{ user.usrPhoneNumber }}</td>
                 <td>{% if user.usrState %}Active{% else %}Inactive{% endif %}</td>
-                <td>{% if user.usrGrantList %}Yes{% else %}No{% endif %}</td>
+                <td>{{ user.pru.pruName }}</td>
                 <td>{% if user.usrGrantList %}Yes{% else %}No{% endif %}</td>
                 <td>{% if user.usrCreationDate %}{{ user.usrCreationDate|date('Y-m-d') }}{% endif %}</td>
                 <td><a class="btn btn-info" href="{{ path('Ums_edit', { 'usrId': user.usrId }) }}">Edit</a></td>
+                <td><a class="btn btn-danger" href="{{ path('Ums_delete', { 'usrId': user.usrId }) }}">Delete</a></td>
             </tr>
         {% endfor %}
         </tbody>

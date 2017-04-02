@@ -19,6 +19,7 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
 {
     private $router;
     private $encrypter;
+    private $userProvider;
 
     public function __construct(RouterInterface $router, UserPasswordEncoderInterface $encrypter)
     {
@@ -45,8 +46,9 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $email = $credentials['email'];
+        $this->userProvider = $userProvider->loadUserByUsername($email);
 
-        return $userProvider->loadUserByUsername($email);
+        return $this->userProvider;
     }
 
     public function checkCredentials($credentials, UserInterface $user)
@@ -61,7 +63,14 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        $url = $this->router->generate('Ums_index');
+        $aRoles = $this->userProvider->getRoles();
+        $url = $this->router->generate(
+            'Ums_show', array('usrId' => $this->userProvider->getUsrId())
+        );
+
+        if($aRoles[0] == 'ROLE_ADMIN'){
+            $url = $this->router->generate('Ums_index');
+        }
 
         return new RedirectResponse($url);
     }

@@ -1,64 +1,35 @@
 {% extends 'base.html.twig' %}
 
+{% block headtitle %}User Information{% endblock %}
 {% block body %}
-    <h1>User</h1>
-
-    <table>
+    <ul>
+        <li>
+            <a class="btn btn-info" href="{{ path('Ums_edit', { 'usrId': user.usrId }) }}">Edit</a>
+        </li>
+        {% if user.pru.pruId != 7 %}
+        <li>
+            <a class="btn btn-primary" href="{{ path('Ums_index') }}">Back to the list</a>
+        </li>
+        {% endif %}
+    </ul>
+    <table class="table table-hover table-responsive">
         <tbody>
             <tr>
-                <th>Usrid</th>
-                <td>{{ user.usrId }}</td>
-            </tr>
-            <tr>
-                <th>Usrfirstname</th>
+                <th>First name: </th>
                 <td>{{ user.usrFirstName }}</td>
             </tr>
             <tr>
-                <th>Usrlastname</th>
+                <th>Last name:</th>
                 <td>{{ user.usrLastName }}</td>
             </tr>
             <tr>
-                <th>Usrfullname</th>
-                <td>{{ user.usrFullName }}</td>
-            </tr>
-            <tr>
-                <th>Usremail</th>
+                <th>Email: </th>
                 <td>{{ user.usrEmail }}</td>
             </tr>
             <tr>
-                <th>Usrphonenumber</th>
+                <th>Phone number: </th>
                 <td>{{ user.usrPhoneNumber }}</td>
-            </tr>
-            <tr>
-                <th>Usrpassword</th>
-                <td>{{ user.usrPassword }}</td>
-            </tr>
-            <tr>
-                <th>Usrstate</th>
-                <td>{% if user.usrState %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Usrgrantlist</th>
-                <td>{% if user.usrGrantList %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Usrcreationdate</th>
-                <td>{% if user.usrCreationDate %}{{ user.usrCreationDate|date('Y-m-d') }}{% endif %}</td>
             </tr>
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('Ums_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('Ums_edit', { 'usrId': user.usrId }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
 {% endblock %}

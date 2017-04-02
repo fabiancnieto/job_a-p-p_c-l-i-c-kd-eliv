@@ -6,12 +6,13 @@ use AppBundle\Entity\Parameter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Parameter controller.
  *
- * @Route("/", name="Parameters")
+ * @Route("/UMS", name="Parameters")
  */
 class ParameterController extends Controller
 {
@@ -20,6 +21,7 @@ class ParameterController extends Controller
      *
      * @Route("/Parameters", name="parameter_index")
      * @Method("GET")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function indexAction()
     {
@@ -38,6 +40,7 @@ class ParameterController extends Controller
      *
      * @Route("/Parameters/new", name="parameter_new")
      * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function newAction(Request $request)
     {
@@ -64,6 +67,7 @@ class ParameterController extends Controller
      *
      * @Route("/Parameters/{parId}", name="parameter_show")
      * @Method("GET")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function showAction(Parameter $parameter)
     {
@@ -80,6 +84,7 @@ class ParameterController extends Controller
      *
      * @Route("/Parameters/{parId}/edit", name="parameter_edit")
      * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function editAction(Request $request, Parameter $parameter)
     {
@@ -105,6 +110,7 @@ class ParameterController extends Controller
      *
      * @Route("/Parameters/{parId}", name="parameter_delete")
      * @Method("DELETE")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteAction(Request $request, Parameter $parameter)
     {

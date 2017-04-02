@@ -32,13 +32,20 @@ class RegistrerController extends Controller
             $user->setUsrGrantList(false);
 
             // Set their role
-            $profile = new Profile(3);
+            $em = $this->getDoctrine()->getManager();
+            $profile = $em->find('AppBundle\Entity\Profile', 7);
             $user->setPru($profile);
 
             // Save
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+
+            // Sucess message
+            $this->addFlash(
+                'success',
+                'Graet your are now register!, we just send an email to activate your account'
+            );
 
             return $this->redirectToRoute('ums_login');
         }

@@ -6,12 +6,13 @@ use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * User controller.
  *
- * @Route("/", name="Users")
+ * @Route("/UMS", name="UMS")
  */
 class UserController extends Controller
 {
@@ -20,8 +21,9 @@ class UserController extends Controller
      *
      * @Route("/Users", name="Ums_index")
      * @Method("GET")
+     * @Security("has_role('ROLE_AGENT')")
      */
-    public function indexAction()
+    public function indexAction(User $user=0)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -39,6 +41,7 @@ class UserController extends Controller
      *
      * @Route("/Users/new", name="Ums_new")
      * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function newAction(Request $request)
     {
@@ -65,6 +68,7 @@ class UserController extends Controller
      *
      * @Route("/Users/{usrId}", name="Ums_show")
      * @Method("GET")
+     * @Security("has_role('ROLE_USER')")
      */
     public function showAction(User $user)
     {
@@ -72,7 +76,6 @@ class UserController extends Controller
 
         return $this->render('Ums/user/show.html.twig', array(
             'user' => $user,
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -81,6 +84,7 @@ class UserController extends Controller
      *
      * @Route("/Users/{usrId}/edit", name="Ums_edit")
      * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_USER')")
      */
     public function editAction(Request $request, User $user)
     {
@@ -90,8 +94,11 @@ class UserController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('Ums_edit', array('usrId' => $user->getUsrid()));
+            if($user->getPru()->getPruId() == 5){
+                return $this->redirectToRoute('Ums_index');
+            } else {
+                return $this->redirectToRoute('Ums_show', array('usrId' => $user->getUsrid()));
+            }
         }
 
         return $this->render('Ums/user/edit.html.twig', array(
@@ -106,6 +113,7 @@ class UserController extends Controller
      *
      * @Route("/Users/{usrId}", name="Ums_delete")
      * @Method("DELETE")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteAction(Request $request, User $user)
     {

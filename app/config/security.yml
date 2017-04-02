@@ -10,7 +10,7 @@ security:
         #    memory: ~
         database_users:
             entity: { class: AppBundle:User, property: usrEmail }
-            
+
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
@@ -32,3 +32,14 @@ security:
             logout:
                 path: /logout
                 target: /
+        secured_area:
+            pattern: ^/UMS
+            user_checker: app.user_checker
+            anonymous: ~
+    access_control:
+        # require ROLE_ADMIN for /UMS*
+        - { path: ^/UMS, allow_if: "has_role('ROLE_USER') and is_fully_authenticated()" }
+
+    role_hierarchy:
+        ROLE_AGENT: ROLE_USER
+        ROLE_ADMIN: [ROLE_AGENT]

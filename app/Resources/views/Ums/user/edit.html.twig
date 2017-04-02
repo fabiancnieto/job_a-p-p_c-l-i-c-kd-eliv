@@ -2,11 +2,13 @@
 
 {% block headtitle %}Users Edit{% endblock %}
 {% block body %}
+    {% if user.pru.pruId != 7 %}
     <ul>
         <li>
             <a class="btn btn-primary" href="{{ path('Ums_index') }}">Back to the list</a>
         </li>
     </ul>
+    {% endif %}
     
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}

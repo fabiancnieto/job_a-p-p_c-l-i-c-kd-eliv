@@ -46,29 +46,38 @@
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
     </nav><!-- /.navbar -->
-    <hr>
+    <hr><br/>
     <div class="container">
+      <div class="row">
+        <div class="col-xs-1 col-sm-2"></div>
+        <div class="col-xs-10 col-sm-8">
+        {% for type, flash_messages in app.session.flashBag.all %}
+            {% for flash_message in flash_messages %}
+                <div role="alert" class="alert alert-{{ type }}">
+                    {{ flash_message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+        </div>
+        <div class="col-xs-1 col-sm-2"></div>
+      </div>
       <div class="row">
         <div class="col-xs-1 col-sm-2"></div>
         <div class="col-xs-10 col-sm-8">
           {% block body %}{% endblock %}
         </div>
         <div class="col-xs-1 col-sm-2"></div>
-      </di> <!-- /row -->
-    </div> <!-- /container -->
-      <hr>
+      </div> <!-- /row -->
+    <hr>
       <footer>
         <p>© Fabian Nieto 2017</p>
       </footer>
     </div><!--/.container-->
     {% block javascripts %}{% endblock %}
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
+    <!-- Bootstrap core JavaScript ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-    <script src="offcanvas.js"></script>
 </body></html>

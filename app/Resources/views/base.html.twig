@@ -42,14 +42,21 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="navbar-left"><a href="{{ path('Ums_show', { 'usrId': user.usrId }) }}">Account</a></li>
-            {% if user.pru.pruId != 7 and user.usrGrantList %}
+            <li class="navbar-left"><a href="{{ path('Ums_show', { 'usrId': sec["id"] }) }}">Account</a></li>
+            {% if (sec["role"] == 'ROLE_AGENT' and sec["grant"]) or sec["role"] == 'ROLE_ADMIN' %}
             <li class="navbar-left"><a href="/UMS/Users">Users</a></li>
             {% endif %}
-            {% if user.pru.pruId == 5 %}
+            {% if sec["role"] == 'ROLE_ADMIN' %}
             <li class="navbar-left"><a href="/UMS/Users/new">Create User</a></li>
             <li class="navbar-left"><a href="/UMS/Parameters">Parameters</a></li>
             {% endif %}
+            <li class="navbar-right" >
+              <span class="navbar-text">Hello: 
+                <a class="navbar-link" href="{{ path('Ums_edit', { 'usrId': sec["id"] }) }}">
+                  {{ sec["name"] }} / Profile: {{ sec["role"] }}
+                </a>
+              </span>
+            </li>
             <li class="navbar-right" ><a class="navbar-link" href="/logout">Logout</a></li>
           </ul>
         </div><!-- /.nav-collapse -->

@@ -27,17 +27,16 @@ security:
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
             #form_login: ~
             guard:
+                entry_point: app.form_login_authenticator
                 authenticators:
                     - app.form_login_authenticator
+                    - app.facebook_authenticator
             logout:
                 path: /logout
                 target: /
-        secured_area:
-            pattern: ^/UMS
-            user_checker: app.user_checker
-            anonymous: ~
+
     access_control:
-        # require ROLE_ADMIN for /UMS*
+        # require ROLE_USER for /UMS*
         - { path: ^/UMS, allow_if: "has_role('ROLE_USER') and is_fully_authenticated()" }
 
     role_hierarchy:

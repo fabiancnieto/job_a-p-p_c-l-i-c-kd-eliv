@@ -17,14 +17,21 @@ use Symfony\Component\HttpFoundation\Request;
 class UserController extends Controller
 {
     /**
+     * @var user
+     */
+    private $user;
+
+    /**
      * Lists all user entities.
      *
      * @Route("/Users", name="Ums_index")
      * @Method("GET")
      * @Security("has_role('ROLE_AGENT')")
      */
-    public function indexAction(User $user=0)
+    public function indexAction()
     {
+        $userLogIn = $this->getUser();
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
 
         $users = $em->getRepository('AppBundle:User')->findAll();
@@ -33,6 +40,12 @@ class UserController extends Controller
          'Ums/user/index.html.twig', 
          array(
             'users' => $users,
+            'sec' => array(
+                'role' => $userLogIn->getPru()->getPruName(),
+                'name' => $userLogIn->getUsrFullName(),
+                'grant' => $userLogIn->getUsrGrantList(),
+                'id' => $userLogIn->getUsrId(),
+            )
         ));
     }
 
@@ -45,21 +58,29 @@ class UserController extends Controller
      */
     public function newAction(Request $request)
     {
-        $user = new User();
-        $form = $this->createForm('AppBundle\Form\Ums\UserType', $user);
+        $userLogIn = $this->getUser();
+        $this->user = new User();
+        $form = $this->createForm('AppBundle\Form\Ums\UserType', $this->user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
+            $this->setEncryptPassword();
+            $em->persist($this->user);
             $em->flush();
 
-            return $this->redirectToRoute('Ums_show', array('usrId' => $user->getUsrid()));
+            return $this->redirectToRoute('Ums_show', array('usrId' => $this->user->getUsrid()));
         }
 
         return $this->render('Ums/user/new.html.twig', array(
-            'user' => $user,
+            'user' => $this->user,
             'form' => $form->createView(),
+            'sec' => array(
+                'role' => $userLogIn->getPru()->getPruName(),
+                'name' => $userLogIn->getUsrFullName(),
+                'grant' => $userLogIn->getUsrGrantList(),
+                'id' => $userLogIn->getUsrId(),
+            )
         ));
     }
 
@@ -72,10 +93,18 @@ class UserController extends Controller
      */
     public function showAction(User $user)
     {
+        $userLogIn = $this->getUser();
         $deleteForm = $this->createDeleteForm($user);
 
         return $this->render('Ums/user/show.html.twig', array(
             'user' => $user,
+            'delete_form' => $deleteForm->createView(),
+            'sec' => array(
+                'role' => $userLogIn->getPru()->getPruName(),
+                'name' => $userLogIn->getUsrFullName(),
+                'grant' => $userLogIn->getUsrGrantList(),
+                'id' => $userLogIn->getUsrId(),
+            )
         ));
     }
 
@@ -88,23 +117,36 @@ class UserController extends Controller
      */
     public function editAction(Request $request, User $user)
     {
-        $deleteForm = $this->createDeleteForm($user);
-        $editForm = $this->createForm('AppBundle\Form\Ums\UserType', $user);
+        $this->user = $user;
+        $userLogIn = $this->getUser();
+        $deleteForm = $this->createDeleteForm($this->user);
+        $editForm = $this->createForm('AppBundle\Form\Ums\UserType', $this->user);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $role = $userLogIn->getRoles();
+            $this->setEncryptPassword();
+
+            $this->getDoctrine()->getManager()->merge($this->user);
             $this->getDoctrine()->getManager()->flush();
-            if($user->getPru()->getPruId() == 5){
+
+            if($role[0] == "ROLE_ADMIN"){
                 return $this->redirectToRoute('Ums_index');
             } else {
-                return $this->redirectToRoute('Ums_show', array('usrId' => $user->getUsrid()));
+                return $this->redirectToRoute('Ums_show', array('usrId' => $userLogIn->getUsrid()));
             }
         }
 
         return $this->render('Ums/user/edit.html.twig', array(
-            'user' => $user,
+            'user' => $this->user,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'sec' => array(
+                'role' => $userLogIn->getPru()->getPruName(),
+                'name' => $userLogIn->getUsrFullName(),
+                'grant' => $userLogIn->getUsrGrantList(),
+                'id' => $userLogIn->getUsrId(),
+            )
         ));
     }
 
@@ -143,5 +185,15 @@ class UserController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    /**
+     * Encode the user plain password and add to the entity User
+     */
+    private function setEncryptPassword(){
+        // Encode the new users password
+        $encrpyt = $this->get('security.password_encoder');
+        $password = $encrpyt->encodePassword($this->user, $this->user->getPassword());
+        $this->user->setPassword($password);
     }
 }

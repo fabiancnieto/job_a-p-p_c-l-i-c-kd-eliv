@@ -2,7 +2,7 @@
 
 {% block headtitle %}Users Edit{% endblock %}
 {% block body %}
-    {% if user.pru.pruId != 7 %}
+    {% if user.pru.pruName == 'ROLE_ADMIN' or (user.pru.pruName == 'ROLE_AGENT' and user.usrGrantList) %}
     <ul>
         <li>
             <a class="btn btn-primary" href="{{ path('Ums_index') }}">Back to the list</a>

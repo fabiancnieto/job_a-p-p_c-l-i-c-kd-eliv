@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use AppBundle\Entity\Profile;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * User
@@ -80,7 +81,7 @@ class User implements UserInterface
      *
      * @ORM\Column(name="usr_state", type="boolean", nullable=true)
      */
-    private $usrState = '0';
+    private $usrState;
 
     /**
      * @var boolean
@@ -106,9 +107,15 @@ class User implements UserInterface
      */
     private $pru;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\RegisterLog", mappedBy="usr", cascade={"persist"})
+     */
+    private $registerLogs;
+
     public function __construct()
     {
-         $this->usrCreationDate = new \DateTime();
+        $this->registerLogs = new ArrayCollection();
+        $this->usrCreationDate = new \DateTime();
     }
     /**
      * Get usrId
@@ -127,7 +134,7 @@ class User implements UserInterface
      *
      * @return User
      */
-    public function setUsrFirstName($usrFirstName)
+    public function setUsrFirstName($usrFirstName="")
     {
         $this->usrFirstName = strtoupper($usrFirstName);
 
@@ -271,7 +278,7 @@ class User implements UserInterface
      *
      * @return User
      */
-    public function setUsrState($usrState)
+    public function setUsrState($usrState=false)
     {
         $this->usrState = $usrState;
 
@@ -295,7 +302,7 @@ class User implements UserInterface
      *
      * @return User
      */
-    public function setUsrGrantList($usrGrantList)
+    public function setUsrGrantList($usrGrantList=false)
     {
         $this->usrGrantList = $usrGrantList;
 
@@ -387,12 +394,10 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        if($this->pru->getPruId() == 5){
-            return array('ROLE_ADMIN');
-        } elseif($this->pru->getPruId() == 6){
-            return array('ROLE_AGENT');
-        } elseif($this->pru->getPruId() == 7){
-            return array('ROLE_USER');
+        if(!empty($this->pru)) {
+            return array($this->pru->getPruName());
+        } else {
+            return array();
         }
     }
 
@@ -457,4 +462,13 @@ class User implements UserInterface
     {
     }
 
+    /**
+     * verifyAccount
+     *
+     * 
+     */
+    public function verifyAccount()
+    {
+        $this->usrState = true;
+    }
 }

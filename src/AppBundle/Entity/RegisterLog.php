@@ -26,7 +26,7 @@ class RegisterLog
      *
      * @ORM\Column(name="request_date", type="datetime", nullable=true)
      */
-    private $requestDate = 'CURRENT_TIMESTAMP';
+    private $requestDate;
 
     /**
      * @var \DateTime
@@ -45,14 +45,17 @@ class RegisterLog
     /**
      * @var \AppBundle\Entity\User
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="registerLogs", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="usr_id", referencedColumnName="usr_id")
      * })
      */
     private $usr;
 
-
+    public function __construct()
+    {
+        $this->requestDate = new \DateTime();
+    }
 
     /**
      * Get regId

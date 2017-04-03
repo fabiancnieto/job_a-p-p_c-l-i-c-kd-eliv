@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Core\Security;
-
+use AppBundle\Security\Exception\DefaultAccountStatusException;
 
 class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
 {
@@ -54,11 +54,13 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
     public function checkCredentials($credentials, UserInterface $user)
     {
         $plainPassword = $credentials['password'];
-        if ($this->encrypter->isPasswordValid($user, $plainPassword)) {
-            return true;
+        if (!$this->encrypter->isPasswordValid($user, $plainPassword)) {
+            throw new BadCredentialsException();
+        } elseif(!$user->getUsrState()){
+            throw new DefaultAccountStatusException();
         }
 
-        throw new BadCredentialsException();
+        return true;
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)

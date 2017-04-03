@@ -12,29 +12,34 @@
                 <th>Profile</th>
                 <th>Read Privilege</th>
                 <th>Created</th>
+                {% if sec["role"] == 'ROLE_ADMIN' %}
                 <th>Actions</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
-        {% for user in users %}
+        {% for userlist in users %}
             <tr>
-                <td>{{ user.usrFullName }}</td>
-                <td>{{ user.usrEmail }}</td>
-                <td>{{ user.usrPhoneNumber }}</td>
-                <td>{% if user.usrState %}Active{% else %}Inactive{% endif %}</td>
-                <td>{{ user.pru.pruName }}</td>
-                <td>{% if user.usrGrantList %}Yes{% else %}No{% endif %}</td>
-                <td>{% if user.usrCreationDate %}{{ user.usrCreationDate|date('Y-m-d') }}{% endif %}</td>
-                <td><a class="btn btn-info" href="{{ path('Ums_edit', { 'usrId': user.usrId }) }}">Edit</a></td>
-                <td><a class="btn btn-danger" href="{{ path('Ums_delete', { 'usrId': user.usrId }) }}">Delete</a></td>
+                <td>{{ userlist.usrFullName }}</td>
+                <td>{{ userlist.usrEmail }}</td>
+                <td>{{ userlist.usrPhoneNumber }}</td>
+                <td>{% if userlist.usrState %}Active{% else %}Inactive{% endif %}</td>
+                <td>{{ userlist.pru.pruName }}</td>
+                <td>{% if userlist.usrGrantList %}Yes{% else %}No{% endif %}</td>
+                <td>{% if userlist.usrCreationDate %}{{ userlist.usrCreationDate|date('Y-m-d') }}{% endif %}</td>
+                {% if sec["role"] == 'ROLE_ADMIN' %}
+                <td><a class="btn btn-info" href="{{ path('Ums_edit', { 'usrId': userlist.usrId }) }}">Edit</a></td>
+                <td><a class="btn btn-danger" href="{{ path('Ums_delete', { 'usrId': userlist.usrId }) }}">Delete</a></td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
+    {% if sec["role"] == 'ROLE_ADMIN' %}
     <ul>
         <li>
             <a class="btn btn-success" href="{{ path('Ums_new') }}">Create a new user</a>
         </li>
     </ul>
+    {% endif %}
 {% endblock %}

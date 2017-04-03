@@ -11,6 +11,7 @@ class UserChecker implements UserCheckerInterface
 {
     public function checkPreAuth(UserInterface $user)
     {
+        var_dump($user);die("sorry!");
         if (!$user instanceof AppUser) {
             return;
         }

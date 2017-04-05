@@ -16,6 +16,6 @@ class DefaultAccountStatusException extends AccountStatusException
     {
         $user = $this->getUser();
 
-        return 'You are account is not activiated yet please check your email!';
+        return 'Your account is not activiated yet please check your email!';
     }
 }

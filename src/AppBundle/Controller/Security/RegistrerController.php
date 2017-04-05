@@ -42,6 +42,8 @@ class RegistrerController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             //Set the attibutes of the new User
             $this->user->setUsrFullName();
+            $this->user->setUsrState();
+            $this->user->setUsrGrantList();
             $this->setEncryptPassword();
             $this->setRegistrationRole();
             $this->sendActivationEmail();

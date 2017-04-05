@@ -2,6 +2,9 @@
 # http://symfony.com/doc/current/service_container.html
 parameters:
     #parameter_name: value
+    facebook_app_id: 817191871783399
+    facebook_app_secret: d148eb0039302c1bc49491eb26954d61
+    absolute_ums_connect_facebook_check: http://localhost:8000/connect/facebook_check
 
 services:
     #service_name:
@@ -11,7 +14,16 @@ services:
     app.form_login_authenticator:
         class: AppBundle\Security\FormLoginAuthenticator
         arguments: ["@router", "@security.password_encoder"]
+    app.facebook_provider:
+        class: League\OAuth2\Client\Provider\Facebook
+        arguments:
+            -
+                clientId: %facebook_app_id%
+                clientSecret: %facebook_app_secret%
+                graphApiVersion: v2.3
+                #redirectUri: "@=service('router').generate('ums_connect_facebook_check', {}, true)"
+                redirectUri: "%absolute_ums_connect_facebook_check%"
 
-    #form Login Authentication service
-    app.user_checker:
-        class: AppBundle\Security\UserChecker
+    app.facebook_authenticator:
+        class: AppBundle\Security\FacebookAuthenticator
+        arguments: ["@service_container"]

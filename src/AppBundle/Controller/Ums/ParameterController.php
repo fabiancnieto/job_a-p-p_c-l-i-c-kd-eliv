@@ -25,6 +25,7 @@ class ParameterController extends Controller
      */
     public function indexAction()
     {
+        $userLogIn = $this->getUser();
         $em = $this->getDoctrine()->getManager();
 
         $parameters = $em->getRepository('AppBundle:Parameter')->findAll();
@@ -32,6 +33,12 @@ class ParameterController extends Controller
         return $this->render(
           'Ums/parameter/index.html.twig', array(
             'parameters' => $parameters,
+            'sec' => array(
+                'role' => $userLogIn->getPru()->getPruName(),
+                'name' => $userLogIn->getUsrFullName(),
+                'grant' => $userLogIn->getUsrGrantList(),
+                'id' => $userLogIn->getUsrId(),
+            )
         ));
     }
 
@@ -44,6 +51,7 @@ class ParameterController extends Controller
      */
     public function newAction(Request $request)
     {
+        $userLogIn = $this->getUser();
         $parameter = new Parameter();
         $form = $this->createForm('AppBundle\Form\Ums\ParameterType', $parameter);
         $form->handleRequest($request);
@@ -59,6 +67,12 @@ class ParameterController extends Controller
         return $this->render('Ums/parameter/new.html.twig', array(
             'parameter' => $parameter,
             'form' => $form->createView(),
+            'sec' => array(
+                'role' => $userLogIn->getPru()->getPruName(),
+                'name' => $userLogIn->getUsrFullName(),
+                'grant' => $userLogIn->getUsrGrantList(),
+                'id' => $userLogIn->getUsrId(),
+            )
         ));
     }
 
@@ -71,11 +85,18 @@ class ParameterController extends Controller
      */
     public function showAction(Parameter $parameter)
     {
+        $userLogIn = $this->getUser();
         $deleteForm = $this->createDeleteForm($parameter);
 
         return $this->render('Ums/parameter/show.html.twig', array(
             'parameter' => $parameter,
             'delete_form' => $deleteForm->createView(),
+            'sec' => array(
+                'role' => $userLogIn->getPru()->getPruName(),
+                'name' => $userLogIn->getUsrFullName(),
+                'grant' => $userLogIn->getUsrGrantList(),
+                'id' => $userLogIn->getUsrId(),
+            )
         ));
     }
 
@@ -88,6 +109,7 @@ class ParameterController extends Controller
      */
     public function editAction(Request $request, Parameter $parameter)
     {
+        $userLogIn = $this->getUser();
         $deleteForm = $this->createDeleteForm($parameter);
         $editForm = $this->createForm('AppBundle\Form\Ums\ParameterType', $parameter);
         $editForm->handleRequest($request);
@@ -102,6 +124,12 @@ class ParameterController extends Controller
             'parameter' => $parameter,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'sec' => array(
+                'role' => $userLogIn->getPru()->getPruName(),
+                'name' => $userLogIn->getUsrFullName(),
+                'grant' => $userLogIn->getUsrGrantList(),
+                'id' => $userLogIn->getUsrId(),
+            )
         ));
     }
 
